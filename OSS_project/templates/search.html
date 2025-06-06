@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>지역 선택</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .search-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+    #search {
+      width: 300px;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #search-btn {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #search-btn:hover {
+      background-color: #45a049;
+    }
+    .region-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .region-btn {
+      padding: 12px 20px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .region-btn:hover {
+      background-color: #1976d2;
+    }
+    .logout-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 8px 14px;
+        background-color: #e53935;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+    .logout-btn:hover {
+        background-color: #c62828;
+    }
+  </style>
+  <script>
+    function filterRegions() {
+      const input = document.getElementById('search').value.toLowerCase();
+      const buttons = document.querySelectorAll('.region-btn');
+
+      buttons.forEach(btn => {
+        const text = btn.innerText.toLowerCase();
+        btn.style.display = text.includes(input) ? 'inline-block' : 'none';
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById('search').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          filterRegions();
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <a href="{{ url_for('logout') }}" class="logout-btn">로그아웃</a>
+    <h2>지역 게시판 선택</h2>
+    {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('manageUser') }}">👤 사용자 관리</a>
+        <a href="{{ url_for('report') }}">🚨 신고 관리</a>
+    {% endif %}
+
+    <div class="search-group">
+      <input type="text" id="search" placeholder="지명을 검색하세요..." />
+      <button id="search-btn" onclick="filterRegions()">확인</button>
+    </div>
+
+    <div class="region-list">
+      <button class="region-btn" onclick="location.href='/region/1'">서울 강남구</button>
+      <button class="region-btn" onclick="location.href='/region/2'">부산 해운대구</button>
+      <button class="region-btn" onclick="location.href='/region/3'">대구 수성구</button>
+      <button class="region-btn" onclick="location.href='/region/4'">제주 제주시</button>
+      <button class="region-btn" onclick="location.href='/region/5'">인천 연수구</button>
+      <!-- 필요에 따라 지역 추가 가능 -->
+    </div>
+  </div>
+</body>
+</html>

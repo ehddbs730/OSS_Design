@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ region }} 게시판</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .location {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .post {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 3px;
+        }
+        .post-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .post-content {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        .write-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .write-btn:hover {
+            background-color: #45a049;
+        }
+
+        .report-container {
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+            padding: 0;
+        }
+
+        .report-btn {
+            color: red;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 0;
+        }
+        .logout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 8px 14px;
+            background-color: #e53935;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 999;
+        }
+        .logout-btn:hover {
+            background-color: #c62828;
+        }
+        .return-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 998;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('select') }}" class="return-btn">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="게시판 검색" class="logo-icon">
+        </a>
+        <a href="{{ url_for('logout') }}" class="logout-btn">로그아웃</a>
+        <div class="location">{{ region }} 게시판</div>
+
+        {% if posts %}
+            {% for post in posts %}
+                <div class="post">
+                    <div class="post-header">
+                        <span>작성자: {{ post.author }}</span>
+                        <span>{{ post.created_at }}</span>
+                    </div>
+                    <div class="report-container">
+                        <a href="{{ url_for('writeReport') }}?post_id={{ post.id }}" class="report-btn">신고</a>
+                    </div>
+                    <div class="post-title">{{ post.title }}</div>
+                    <div class="post-content">{{ post.content }}</div>
+
+                    {% if post.user_id == session['user_id'] or session['role'] == 'admin' %}
+                    <div style="text-align: right; margin-top: 10px;">
+                        <a href="{{ url_for('edit', post_id=post.id) }}">✏️ 수정</a>
+                        <form action="{{ url_for('delete', post_id=post.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" style="border:none; background:none; color:red; cursor:pointer;">🗑 삭제</button>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>게시글이 없습니다.</p>
+        {% endif %}
+
+        <button class="write-btn" onclick="window.location.href='/write/{{ region_id }}'">글 작성</button>
+    </div>
+</body>
+</html>

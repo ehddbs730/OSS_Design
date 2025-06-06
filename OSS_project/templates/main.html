@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Login Interface</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .logo {
+            width: 500px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 10px auto;
+            padding: 12px 0;
+            font-size: 16px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="로고" class="logo">
+        <button class="btn" onclick="window.location.href='/login'">로그인</button>
+        <button class="btn" onclick="window.location.href='/register'">회원가입</button>
+    </div>
+</body>
+</html>

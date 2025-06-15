@@ -52,11 +52,31 @@
             color: red;
             font-weight: bold;
         }
+        .return-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 998;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="page-title">경고 사용자 관리</div>
+    <a href="{{ url_for('select') }}" class="return-btn">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="게시판 검색" class="logo-icon">
+    </a>
 
     {% if users %}
         {% for user in users %}

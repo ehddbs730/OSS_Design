@@ -45,12 +45,31 @@
         .warn-btn:hover {
             background-color: #b71c1c;
         }
+        .return-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 998;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo-icon:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">신고 관리</div>
-
+        <a href="{{ url_for('select') }}" class="return-btn">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="게시판 검색" class="logo-icon">
+        </a>
         {% if reports %}
             {% for report in reports %}
                 <div class="report-card">

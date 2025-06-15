@@ -37,11 +37,16 @@ class AdminService:
         db = get_db()
         db.execute("""
             UPDATE users 
-            SET warning_count = CASE 
+        SET 
+            warning_count = CASE 
                 WHEN warning_count > 0 THEN warning_count - 1 
                 ELSE 0 
-            END 
-            WHERE id = ?
+            END,
+            is_active = CASE 
+                WHEN warning_count - 1 < 3 THEN 1 
+                ELSE is_active 
+            END
+        WHERE id = ?
         """, (user_id,))
         db.commit()
         return redirect(url_for('manageUser'))

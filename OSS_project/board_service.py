@@ -1,4 +1,3 @@
-# board_service.py
 from flask import render_template, request, redirect, url_for, session
 from db import get_db
 from region import Region

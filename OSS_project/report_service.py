@@ -1,4 +1,3 @@
-# report_service.py
 from flask import request, redirect, url_for, render_template, session
 from db import get_db
 from functools import wraps

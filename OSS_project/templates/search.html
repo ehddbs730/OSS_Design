@@ -103,8 +103,8 @@
     <a href="{{ url_for('logout') }}" class="logout-btn">로그아웃</a>
     <h2>지역 게시판 선택</h2>
     {% if session.get('role') == 'admin' %}
-        <a href="{{ url_for('manageUser') }}">👤 사용자 관리</a>
-        <a href="{{ url_for('report') }}">🚨 신고 관리</a>
+        <a href="{{ url_for('manageUser') }}">사용자 관리</a>
+        <a href="{{ url_for('report') }}">신고 관리</a>
     {% endif %}
 
     <div class="search-group">

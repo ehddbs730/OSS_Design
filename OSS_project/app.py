@@ -31,7 +31,7 @@ def init_db():
         with open(os.path.join(app.root_path, 'schema.sql'), encoding='utf-8') as f:
             db.executescript(f.read())
 
-        # 기본 관리자 계정 삽입 (이미 존재하지 않으면)
+        # 기본 관리자 계정
         admin = db.execute("SELECT * FROM users WHERE username = 'admin'").fetchone()
         if not admin:
             db.execute(

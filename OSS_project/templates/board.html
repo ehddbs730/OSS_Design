@@ -134,9 +134,9 @@
 
                     {% if post.user_id == session['user_id'] or session['role'] == 'admin' %}
                     <div style="text-align: right; margin-top: 10px;">
-                        <a href="{{ url_for('edit', post_id=post.id) }}">✏️ 수정</a>
+                        <a href="{{ url_for('edit', post_id=post.id) }}">수정</a>
                         <form action="{{ url_for('delete', post_id=post.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" style="border:none; background:none; color:red; cursor:pointer;">🗑 삭제</button>
+                            <button type="submit" style="border:none; background:none; color:red; cursor:pointer;">삭제</button>
                         </form>
                     </div>
                     {% endif %}

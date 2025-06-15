@@ -1,4 +1,3 @@
-# admin_service.py
 from flask import render_template, redirect, url_for, session
 from db import get_db
 from functools import wraps
